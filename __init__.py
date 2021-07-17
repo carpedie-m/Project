@@ -9,7 +9,6 @@ class Main():
         print("불닭 영양성분--------------------------------")
         self.samyang = samyang()
         print("진라면 열량--------------------------------")
-
         self.jin = jin()
 
 if __name__ == "__main__":
