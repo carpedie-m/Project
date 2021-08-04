@@ -1,7 +1,7 @@
 from ramen.nongsim import *
-from wang.samyang import *
-from wang.jin import *
-from wang.paldo import *
+from study.ramen_test.samyang import *
+from study.ramen_test.ottogi import *
+# from ramen_test.paldo import *
 
 class Main():
     def __init__(self):
@@ -11,8 +11,8 @@ class Main():
         self.samyang = samyang()
         print("진라면 열량--------------------------------")
         self.jin = jin()
-        print("팔도비빔면 열량--------------------------------")
-        self.paldo = paldo()
+        # print("팔도비빔면 열량--------------------------------")
+        # self.paldo = paldo()
 
 
 if __name__ == "__main__":
