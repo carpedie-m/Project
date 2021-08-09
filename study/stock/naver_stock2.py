@@ -1,60 +1,39 @@
 from bs4 import BeautifulSoup
 import requests
 
-# headers = {'User-Agent' : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
-#                           "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36"}
-
 url = "https://finance.naver.com/sise/dividend_list.nhn?&page=1"
 reponses = requests.get(url)
-soup = BeautifulSoup(reponses.content, "html.parser", from_encoding="cp949")
+soup = BeautifulSoup(reponses.content, 'html.parser', from_encoding='cp949')
 
 # 종목명
-name = soup.find('table', {"class": "type_1 tb_ty"}).find_all("a")
-# print(name)
-p = ""
-for n in name[8:]:
-    p = n.text
-    print(p)
+# name = soup.find("table", {"class": "type_1 tb_ty"}).find_all("a")[8:]
+# for n in name:
+#     print(n.text)
 
 # 수익률
-# for u in range(16, 821):          # for문 안에 soup이 있으면 안된다!
-#     if u % 12 == 4:
-#         # print(u)
-#         revenue = str(soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[u])
-#         print(revenue.replace('<td class="num"> </td>', ""))
-#
-# revenue = str(soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[16])
-# revenue1 = str(soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[28])
-# revenue2 = str(soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[40])
-# revenue3 = str(soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[52])
-# revenue4 = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[64])
+num = [16, 28, 40, 52, 64, 100, 112, 124, 136, 148, 184, 196, 208, 220, 232,
+       268, 280, 292, 304, 316, 352, 364, 376, 388, 400, 436, 448, 460, 472, 484,
+       520, 532, 544, 556, 568, 604, 616, 628, 640, 652, 688, 700, 712, 724, 736,
+       772, 784, 796, 808, 820]
+# for r in num:
+#     revenue = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[r]
+#     print(revenue.text)
 
-# print(revenue.replace('<td class="num">', "").replace('</td>', ""))
-# print(revenue1.replace('<td class="num">', "").replace('</td>', ""))
-# print(revenue2.replace('<td class="num">', "").replace('</td>', ""))
-# print(revenue3.replace('<td class="num">', "").replace('</td>', ""))
-# print(revenue4.replace('<td class="num">', "").replace('</td>', ""))
+# 종목명 : 수익률 - for문 출력값들을 리스트로 변환해 zip함수 이용해 여러 개 리스트 동시 출력
 
-for i in [16, 28, 40, 52, 64,
-         100, 112, 124, 136, 148,
-         184, 196, 208, 220, 232,
-         268, 280, 292, 304, 316,
-         352, 364, 376, 388, 400,
-         436, 448, 460, 472, 484,
-         520, 532, 544, 556, 568,
-         604, 616, 628, 640, 652,
-         688, 700, 712, 724, 736,
-         772, 784, 796, 808, 820]:
-    revenue = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[i].text
-    print(revenue)
-
-# for i in [100, 112, 124, 136, 148]:
-#     revenue = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[i].text
-#     print(revenue)
+Nameslist = []
+name = soup.find("table", {"class": "type_1 tb_ty"}).find_all("a")[8:]
+for n in name:
+    # print(n.text)
+    Nameslist.append(n.text)
+# print(Nameslist) - 종목명 리스트로 묶음
 
 
+Revenuelist = []
+for r in num:
+    revenue = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[r]
+    Revenuelist.append(revenue.text)
+# print(Revenuelist) - 수익률 리스트로 묶음
 
-# revenue = soup.find("table", {"class": "type_1 tb_ty"})
-# print(revenue)
-
-
+for N, R in zip(Nameslist, Revenuelist):
+    print(N, ":", R)

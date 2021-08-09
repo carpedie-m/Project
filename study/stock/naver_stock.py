@@ -46,11 +46,11 @@ for code in codes:
     #     print(i)
 
     # <span> 태그 제거됨
-    # c = str(soup.find("table", {"class": "per_table"}).find_all("th")[3].text.strip())
-    # re = c.replace("(", "").replace(")", "").replace(" ", "") \
-    #     .replace("배당수익률=배당금/현재가x100", "") \
-    #     .replace("배당금은최근결산연도기준의중간배당을포함한총배당금입니다.", "") \
-    #     .replace("l2020.12", "") \
-    #     .strip()
-    # print(re)
+    c = str(soup.find("table", {"class": "per_table"}).find_all("th")[3].text.strip())
+    re = c.replace("(", "").replace(")", "").replace(" ", "") \
+        .replace("배당수익률=배당금/현재가x100", "") \
+        .replace("배당금은최근결산연도기준의중간배당을포함한총배당금입니다.", "") \
+        .replace("l2020.12", "") \
+        .strip()
+    print(re)
 
