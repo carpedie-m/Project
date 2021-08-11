@@ -37,3 +37,4 @@ for r in num:
 
 for N, R in zip(Nameslist, Revenuelist):
     print(N, ":", R)
+

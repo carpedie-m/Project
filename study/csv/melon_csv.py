@@ -13,7 +13,7 @@ lst50 = soup.select('.lst50')
 
 melonList = []
 for i in lst50:
-    print(i.select_one(".ellipsis rank01").a.text)
+    print(i.select_one(".ellipsis rank01").text)
     print(i.select_one(".ellipsis rank02").a.text)
     print(i.select_one(".ellipsis rank03").a.text)
 
