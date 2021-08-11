@@ -4,7 +4,6 @@ import csv
 
 class kor_allocation():
     def __init__(self):
-
         self.path = "/Users/choeseunghui/Documents/"
 
         self.name = ""
@@ -30,9 +29,6 @@ class kor_allocation():
         # self.name_data = []
         # self.revenue_data = []
         #
-        # self.data = []
-        # self.data25 = []
-
         self.kor_allocation()
 
     def kor_allocation(self):
@@ -40,7 +36,7 @@ class kor_allocation():
         pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                  11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
 
-        # pages = [1]
+        # pages = [1, 2]
 
         revenue_code = [16, 28, 40, 52, 64, 100, 112, 124, 136, 148, 184, 196, 208, 220, 232,
                         268, 280, 292, 304, 316, 352, 364, 376, 388, 400, 436, 448, 460, 472, 484,
@@ -64,7 +60,9 @@ class kor_allocation():
                 self.revenueList.append(self.revenue)
 
             for self.nn, self.rr in zip(self.namesList, self.revenueList):
-                print(self.nn, self.rr)
+                print(self.nn, ":", self.rr)
+
+        
 
         # 25p
         # url = "https://finance.naver.com/sise/dividend_list.nhn?&page=25"
@@ -92,8 +90,6 @@ class kor_allocation():
         # # self.name_data = self.nn + self.nn25
         # # print(self.revenue_data)
         # # print(self.name_data)
-        # self.data25 = self.nn25 + self.rr25
-        # self.data = self.nn + self.rr
 
         write_file = open("/Users/choeseunghui/Documents/stock_allocation.csv", 'w', newline="")
         writer = csv.writer(write_file)
@@ -101,12 +97,11 @@ class kor_allocation():
             "종목명", "배당수익률(%)"
             ])
 
-        for num in range(100):
+        for num in range(50):
             writer.writerow([
-                self.namesList[num], self.revenueList[num]
+                self.namesList[num],
+                self.revenueList[num]
 
-                # self.data25[num],
-                # self.data[num]
                 # self.revenue_data[num],
                 # self.name_data[num]
                 ])
