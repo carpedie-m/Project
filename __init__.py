@@ -3,7 +3,7 @@
 # from study.ramen_test.samyang import *
 # from study.ramen_test.ottogi import *
 # from ramen_test.paldo import *
-from stock.stock_code.daily_sise_csvfile import ko_daily_sise
+from stock.stock_code.daily_sise import ko_daily_sise
 
 
 class Main():

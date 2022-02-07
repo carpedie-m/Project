@@ -1,56 +1,70 @@
-import requests
 from bs4 import BeautifulSoup
+import requests
 
-codes = ["005930", "088350", "048260"]
+# pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+#          11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
 
-for code in codes:
+pages = [1, 2]
 
-    url = f"https://finance.naver.com/item/main.nhn?code={str(code)}"
-
+for page in pages:
+    url = f"https://finance.naver.com/sise/dividend_list.nhn?&page={str(page)}"
     reponses = requests.get(url)
-    soup = BeautifulSoup(reponses.content, "html.parser", from_encoding="cp949")
-    # from_encoding="cp949" 한글 안 깨지게 하는 코드
+    soup = BeautifulSoup(reponses.content, 'html.parser', from_encoding='cp949')
 
-    # '상장주식수' 크롤링
-    # 상장주식수
-    sang = soup.find("div", {"class": "first"}).find_all("th")[2].text
-    # print(sang)
+#   종목명
+#     name = soup.find("table", {"class": "type_1 tb_ty"}).find_all("a")[8:]
+#     for n in name:
+#         print(n.text)
 
-    # 값
-    sn = soup.find("div", {"class": "first"}).find_all("em")[2].text
-    # print(sn)
+#   수익률
+    num = [16, 28, 40, 52, 64, 100, 112, 124, 136, 148, 184, 196, 208, 220, 232,
+           268, 280, 292, 304, 316, 352, 364, 376, 388, 400, 436, 448, 460, 472, 484,
+           520, 532, 544, 556, 568, 604, 616, 628, 640, 652, 688, 700, 712, 724, 736,
+           772, 784, 796, 808, 820]  # 수익률 관련 num
+    # for r in num:
+    #     revenue = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[r]
+    #    print(revenue.text)
 
-    print(sang, ":", sn)
+#   "종목명 : 수익률" - for문 출력값들을 리스트로 변환해 zip함수 이용해 여러 개 리스트 동시 출력
 
-    # '배당수익률' 크롤링
+    namesList = []
+    name = soup.find("table", {"class": "type_1 tb_ty"}).find_all("a")[8:]
+    for n in name:
+        # print(n.text)
+        namesList.append(n.text)
+#   print(namesList) - 종목명 리스트로 묶음
 
-    # 배당수익률
-    b = soup.find("div", {"id": "tab_con1", "class": "tab_con1"}).findAll(text="배당수익률")
+    revenueList = []
+    for r in num:
+        revenue = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[r]
+        revenueList.append(revenue.text)
+#   print(Revenuelist) - 수익률 리스트로 묶음
 
-    v = ""
-    for l in b:
-        v = l.string
-        # print(v)
+    for N, R in zip(namesList, revenueList):
+        print(N, ":", R)
 
-    # 값
-    c = soup.find("div", {"id": "tab_con1", "class": "tab_con1"}).find_all("em")[18].text
-    # print(c)
 
-    print(v, ":", c)
-
-    # '배당수익률' <span>태그 제거 안됨
-    # f = soup.find("div", {"id": "tab_con1", "class": "tab_con1"}).find_all("th")[12]
-    #
-    # for i in f:
-    #     i.extract()
-    #     print(i)
-
-    # <span> 태그 제거됨
-    # c = str(soup.find("table", {"class": "per_table"}).find_all("th")[3].text.strip())
-    # re = c.replace("(", "").replace(")", "").replace(" ", "") \
-    #     .replace("배당수익률=배당금/현재가x100", "") \
-    #     .replace("배당금은최근결산연도기준의중간배당을포함한총배당금입니다.", "") \
-    #     .replace("l2020.12", "") \
-    #     .strip()
-    # print(re)
-    #
+# # 25p 종목명 : 수익률
+# url = f"https://finance.naver.com/sise/dividend_list.nhn?&page=25"
+# # reponses = requests.get(url)
+# # soup = BeautifulSoup(reponses.content, 'html.parser', from_encoding='cp949')
+# #
+# # 25p 수익률 관련 num
+# num25 = [16, 28, 40, 52, 64, 100, 112, 124, 136, 148, 184, 196, 208, 220, 232,
+#          268, 280, 292, 304, 316, 352, 364]
+#
+# names_list25 = []
+# name25 = soup.find("table", {"class": "type_1 tb_ty"}).find_all("a")[8:]
+# for n25 in name25:
+#     # print(n25.text)
+#     names_list25.append(n25.text)
+# # print(names_list25)
+#
+# revenue_list25 = []
+# for i in num25:
+#     revenue25 = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[i]
+#     revenue_list25.append(revenue25.text)
+# # print(revenue_list25)
+#
+# for N25, R25 in zip(names_list25, revenue_list25):
+#     print(N25, ":", R25)
