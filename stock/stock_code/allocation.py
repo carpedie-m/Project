@@ -70,4 +70,3 @@ class kor_allocations():
 
             # 'self.name_list'가 한 리스트묶음(50개)밖에 파일에 안 들어감
             # 리스트 24개를 한 리스트로 묶는 방법은 없을까?
-

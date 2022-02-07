@@ -44,27 +44,27 @@ for page in pages:
         print(N, ":", R)
 
 
-# # 25p 종목명 : 수익률
-# url = f"https://finance.naver.com/sise/dividend_list.nhn?&page=25"
-# # reponses = requests.get(url)
-# # soup = BeautifulSoup(reponses.content, 'html.parser', from_encoding='cp949')
-# #
-# # 25p 수익률 관련 num
-# num25 = [16, 28, 40, 52, 64, 100, 112, 124, 136, 148, 184, 196, 208, 220, 232,
-#          268, 280, 292, 304, 316, 352, 364]
+# 25p 종목명 : 수익률
+url = f"https://finance.naver.com/sise/dividend_list.nhn?&page=25"
+# reponses = requests.get(url)
+# soup = BeautifulSoup(reponses.content, 'html.parser', from_encoding='cp949')
 #
-# names_list25 = []
-# name25 = soup.find("table", {"class": "type_1 tb_ty"}).find_all("a")[8:]
-# for n25 in name25:
-#     # print(n25.text)
-#     names_list25.append(n25.text)
-# # print(names_list25)
-#
-# revenue_list25 = []
-# for i in num25:
-#     revenue25 = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[i]
-#     revenue_list25.append(revenue25.text)
-# # print(revenue_list25)
-#
-# for N25, R25 in zip(names_list25, revenue_list25):
-#     print(N25, ":", R25)
+# 25p 수익률 관련 num
+num25 = [16, 28, 40, 52, 64, 100, 112, 124, 136, 148, 184, 196, 208, 220, 232,
+         268, 280, 292, 304, 316, 352, 364]
+
+names_list25 = []
+name25 = soup.find("table", {"class": "type_1 tb_ty"}).find_all("a")[8:]
+for n25 in name25:
+    # print(n25.text)
+    names_list25.append(n25.text)
+# print(names_list25)
+
+revenue_list25 = []
+for i in num25:
+    revenue25 = soup.find("table", {"class": "type_1 tb_ty"}).find_all("td")[i]
+    revenue_list25.append(revenue25.text)
+# print(revenue_list25)
+
+for N25, R25 in zip(names_list25, revenue_list25):
+    print(N25, ":", R25)
