@@ -1,7 +1,6 @@
 import json
 import urllib.request
 
-
 url = 'https://api.coinone.co.kr/ticker/?currency=all'
 responses = urllib.request.urlopen(url)
 json_obj = json.load(responses)
@@ -9,10 +8,10 @@ json_obj = json.load(responses)
 
 # tickers_info = json_obj.pop('xec')['currency']
 # print(tickers_info)
-tickers = []
+coinone_tickers = []
 for t in json_obj:
     # print(t) # dict for문 --> key, str
-    tickers.append(t.upper())
+    coinone_tickers.append(t.upper())
+del coinone_tickers[0:3]
 
-del tickers[0:3]
-print(tickers)
+print(coinone_tickers)
