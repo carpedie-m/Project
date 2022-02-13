@@ -6,8 +6,6 @@ responses = urllib.request.urlopen(url)
 json_obj = json.load(responses)
 # print(json_obj) # 바로 dict
 
-# tickers_info = json_obj.pop('xec')['currency']
-# print(tickers_info)
 coinone_tickers = []
 for t in json_obj:
     # print(t) # dict for문 --> key, str

@@ -1,10 +1,12 @@
 import time
+import json
+import urllib.request
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 
 options = webdriver.ChromeOptions()
-# # 창 뜨지 않게
+# 창 뜨지 않게
 # options.add_argument('headless')
 # # 창 크기 조절
 # options.add_argument('window-size=1920x1080')
@@ -24,22 +26,28 @@ number = str(driver.find_element(By.XPATH, '//*[@id="realPriceContainer"]/div[1]
 # print(number) # 190 : 홈페이지 코인 개수
 
 bithumb_all = []
-# tickers_all = []
 for num in range(1, int(number) + 1):
     names = driver.find_element(By.XPATH, '//*[@id="sise_list"]/tbody/tr[' + str(num) + ']/td[1]/div/p/a/strong').text
     # print(names)
-
-    # print(ticker)
     bithumb_all.append(names)
-    # tickers_all.append(ticker)
 # print(bithumb_all)
-# print(tickers_all)
 
-# b = list(filter(None, bithumb_all)) # 빈 문자열 제거
-# print(b) # 최종 코인 리스트
-ticker = driver.find_element(By.XPATH, '//*[@id="coinListTab"]/div/div/div[1]/ol/li[1]/a/div[1]/span[1]')
-# two = driver.find_element(By.XPATH, '//*[@id="coinListTab"]/div/div/div[1]/ol/li[3]/a/div[1]/span[1]').text
-print(ticker)
+bithumb_names = list(filter(None, bithumb_all)) # 빈 문자열 제거
+# print(bithumb_names) # 최종 코인 리스트
 
-driver.close()
+# tickers
+url = 'https://api.bithumb.com/public/ticker/ALL_KRW'
+responses = urllib.request.urlopen(url)
+json_obj = json.load(responses)
+# print(json_obj)
+
+bithumb_tickers = []
+for t in json_obj['data']:
+    # print(t)
+    bithumb_tickers.append(t)
+del bithumb_tickers[-1]
+# print(bithumb_tickers)
+
+print(bithumb_names)
+print(bithumb_tickers)
 

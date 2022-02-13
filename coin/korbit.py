@@ -1,4 +1,6 @@
 import time
+import json
+import urllib.request
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -30,7 +32,26 @@ for num in range(1, int(number) + 1):
     korbit_names.append(names)
     filter(None, korbit_names) # 빈 문자열 제거
 
-print(korbit_names)
+# tickers
+url = 'https://api.korbit.co.kr/v1/ticker/detailed/all'
+responses = urllib.request.urlopen(url)
+json_dbj = json.load(responses)
+# print(json_dbj)
 
+
+korbit_tickers = []
+for t in json_dbj:
+    korbit_tickers.append(t)
+
+# print(tickers)
+
+search = '_krw'
+for i, word in enumerate(korbit_tickers):
+    if search in word:
+        # print(word)
+        korbit_tickers[i] = word.strip(search).upper()
+
+print(korbit_names)
+print(korbit_tickers)
 
 driver.close()
